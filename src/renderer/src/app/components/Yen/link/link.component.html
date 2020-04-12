@@ -1,0 +1,31 @@
+<div class="outerDiv">
+  <div class="card text-center" (click)="goTo()" (mouseover)="open=true" (mouseout)="open = false">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-1">
+          <mat-icon svgIcon="launch"></mat-icon>
+        </div>
+        <div class="col-11">
+          <span *ngIf="open">Click to follow the </span> External Link
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+
+      <div class="container">
+        <div class="row">
+          <div class="col-1 verticalCenter horizontalCenter ">
+            <mat-icon *ngIf="!open" svgIcon="gate"></mat-icon>
+            <mat-icon *ngIf="open" svgIcon="gate-open"></mat-icon>
+          </div>
+          <div class="col-11">
+            <h5 class="card-title">{{data.title}}</h5>
+            <p class="card-text">{{data.url}}</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

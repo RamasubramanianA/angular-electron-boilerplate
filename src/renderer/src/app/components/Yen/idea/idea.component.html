@@ -1,0 +1,26 @@
+<div class="alert alertMargin" [ngClass]="alertClasses[data.type]" role="alert">
+  <div class="container">
+    <div class="row">
+      <div class="col-2 verticalCenter">
+          <div class="horizontalCenter">
+            <mat-icon *ngIf="data.type === 'idea'" svgIcon="lightbulb-on"></mat-icon>
+            <mat-icon *ngIf="data.type === 'danger'" svgIcon="bomb"></mat-icon>
+            <mat-icon *ngIf="data.type === 'warning'" svgIcon="alert-rhombus"></mat-icon>
+            <mat-icon *ngIf="data.type === 'info'" svgIcon="information"></mat-icon>
+          </div>
+          <div class="horizontalCenter">
+            <p class="h5"  *ngIf="data.type === 'idea'" >Idea</p>
+            <p class="h5"  *ngIf="data.type === 'danger'" >Danger</p>
+            <p class="h5"  *ngIf="data.type === 'warning'" >Warning</p>
+            <p class="h5"  *ngIf="data.type === 'info'" >Info</p>
+
+          </div>
+      </div>
+      <div class="col-10">
+        <h4 *ngIf="data.title"
+        class="alert-heading">{{data.title}}</h4>
+        <p>{{data.idea}}</p>
+      </div>
+    </div>
+  </div>
+</div>

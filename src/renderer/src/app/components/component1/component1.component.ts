@@ -1,5 +1,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { IpcService } from 'src/app/ipc.service';
+import { IpcService } from 'src/app/services/main/ipc.service';
+import { linkData } from 'src/app/dataPattern/componentData/link';
+import { paraData } from 'src/app/dataPattern/componentData/para';
 
 @Component({
   selector: 'app-component1',
@@ -11,7 +13,16 @@ export class Component1Component implements OnInit {
   hostname = '-';
   platform = '-';
   release = '-';
+  data: linkData = {external: false,
+  title: 'C program wiki link',
+ url: 'www.cProgramwiki.com'} 
 
+ dataPara: paraData = {
+   para: `New paragpaph.
+   
+   
+   two new line adeded.`
+ }
   constructor(private ipcService: IpcService, private ngZone: NgZone) { }
 
   ngOnInit() {

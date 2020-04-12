@@ -2,6 +2,8 @@ import { app, BrowserWindow, ipcMain, Menu } from 'electron';
 import * as path from 'path';
 import { DtoSystemInfo } from '../ipc-dtos/dtosysteminfo';
 import * as os from 'os';
+import {getFileListInDir , fileContent} from './require/fs'
+
 
 let win: BrowserWindow;
 
@@ -55,4 +57,32 @@ ipcMain.on('request-systeminfo', () => {
   if (win) {
     win.webContents.send('systeminfo', serializedString);
   }
+});
+
+
+ipcMain.on('request-file-list', async () => {
+  console.log('request-file-list in main.' );
+
+  if (win) {
+    let files = await getFileListInDir();
+    console.log('files await: ', files);
+    win.webContents.send('files-in-dir', files);
+  }
+  else
+  console.log('win not available. ');
+
+
+});
+
+
+ipcMain.on('request-file-content' , async ( v,fileName:string) => {
+  console.log('request-file-content in main -->.' , fileName);
+
+  if (win) {
+    let content: string = await fileContent(fileName);
+    console.log('files after await : ', content);
+    win.webContents.send('file-content', content);
+  }
+  else
+  console.log('win not available. ');
 });

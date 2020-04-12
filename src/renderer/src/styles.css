@@ -1,3 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~animate.css/animate.min';
+@import "~prismjs/plugins/toolbar/prism-toolbar.css";
+@import "~prismjs/plugins/line-numbers/prism-line-numbers.css";
+@import "~prismjs/themes/prism-solarizedlight";
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.dyOuterDiv{
+    margin-bottom: 7px;
+  }
+
+  .mat-icon svg {
+    height: 24px;
+    width: 24px;
+  }
+  .mat-step-icon-content .mat-icon svg {
+    height: 100%;
+    width: 100%;
+  }

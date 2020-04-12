@@ -1,0 +1,53 @@
+{
+  "abrivation": {
+    "i": "id",
+    "t": "title",
+    "p": "priority",
+    "m": "Mother",
+    "r": "resoursePath"
+  },
+  "config": {
+    "idCounter": 30
+  },
+  "tableOfcontent": [{
+    "i": 1,
+    "t": "main title",
+    "p": 1,
+    "m": 0,
+    "r": ""
+  }, {
+    "i": 2,
+    "t": "main title2",
+    "p": 2,
+    "m": 0,
+    "r": ""
+  },{
+    "i": 3,
+    "t": "main title2",
+    "p": 3,
+    "m": 0,
+    "r": ""
+  },
+  {
+    "i": 4,
+    "t": "sub title1",
+    "p": 1,
+    "m": 2,
+    "r": ""
+  },
+  {
+    "i": 5,
+    "t": "sub title2",
+    "p": 2,
+    "m": 2,
+    "r": ""
+  },
+  {
+    "i": 6,
+    "t": "sub sub title1",
+    "p": 1,
+    "m": 5,
+    "r": ""
+  }
+]
+}
