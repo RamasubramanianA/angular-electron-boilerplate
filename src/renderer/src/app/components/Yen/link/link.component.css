@@ -20,3 +20,8 @@
 .horizontalCenter{
     text-align: center;
 }
+
+.totalCenter{
+    text-align: center;
+    align-self: center;
+}

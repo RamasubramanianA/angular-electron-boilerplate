@@ -1,12 +1,15 @@
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, Input } from '@angular/core';
 import { CodeHighlighterService } from 'src/app/services/renderer/prism/codeHighlighter.service';
+import { DynamicComponentInterface } from 'src/app/interface/DynamicComponentInterface';
+import { codeData } from 'src/app/dataPattern/componentData/code';
 
 @Component({
   selector: 'app-code',
   templateUrl: './code.component.html',
   styleUrls: ['./code.component.css']
 })
-export class CodeComponent implements OnInit, AfterViewChecked {
+export class CodeComponent implements OnInit, AfterViewChecked, DynamicComponentInterface {
+  @Input() data: codeData ;
 
   highlighted: boolean = false;
   content: string = String.raw`#include <stdio.h>

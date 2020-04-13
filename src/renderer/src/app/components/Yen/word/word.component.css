@@ -1,0 +1,35 @@
+.outerCard {
+  padding-top: 20px;
+  min-width: 600px;
+  max-width: 600px;
+
+}
+
+.card{
+    padding: 0px;
+    border-radius: 6px;
+}
+.header{
+    background-color: bisque;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+.wordList{
+    padding-left: 170px;
+    padding-top: 20px;
+}
+
+
+
+.totalCenter {
+  align-self: center;
+  text-align: center;
+}
+
+.title{
+   margin-left: 30px; 
+}
+
+.titleIcons{
+    margin: 10px;
+}

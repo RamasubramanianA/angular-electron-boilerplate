@@ -6,6 +6,8 @@ import { linkData } from 'src/app/dataPattern/componentData/link';
 import { paraData } from 'src/app/dataPattern/componentData/para';
 import { ideaData } from 'src/app/dataPattern/componentData/idea';
 import { IdeaComponent } from 'src/app/components/Yen/idea/idea.component';
+import { WordComponent } from 'src/app/components/Yen/word/word.component';
+import { wordData } from 'src/app/dataPattern/componentData/word';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +26,16 @@ export class GetDyCompService {
         para.
     enjoy :smile.`
   };
+
+  word: wordData ={
+    language : null,
+    type : 'Importent',
+    words : ['performance issue']
+  };
   idea: ideaData = {
     idea: 'this is best way!this is best way!this is best way!this is best way!this is best way!this is best way!this is best way!',
     title: 'First Time',
     type: 'idea'
-
   };
   constructor() { }
   getDyCompForThisPage(): Promise<componentWithClass[]> {
@@ -37,7 +44,8 @@ export class GetDyCompService {
       resolve(
         [new componentWithClass(LinkComponent, this.linkdata),
         new componentWithClass(ParaComponent, this.paraData),
-        new componentWithClass(IdeaComponent, this.idea)
+        new componentWithClass(IdeaComponent, this.idea),
+        new componentWithClass(WordComponent, this.word )
         ]);
     })
   }

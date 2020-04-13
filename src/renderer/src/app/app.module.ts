@@ -26,6 +26,7 @@ import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { CodeHighlighterService } from './services/renderer/prism/codeHighlighter.service';
 import { CodeComponent } from './components/Yen/code/code.component';
+import { WordComponent } from './components/Yen/word/word.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { CodeComponent } from './components/Yen/code/code.component';
     IdeaComponent,
     PageWithDyComComponent,
     DynCompDirHostDirective,
-    CodeComponent
+    CodeComponent,
+    WordComponent
   ],
   imports: [
     BrowserModule,
