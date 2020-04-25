@@ -3,6 +3,14 @@
 @import "~prismjs/plugins/toolbar/prism-toolbar.css";
 @import "~prismjs/plugins/line-numbers/prism-line-numbers.css";
 @import "~prismjs/themes/prism-solarizedlight";
+@import "~bpmn-js/dist/assets/diagram-js";
+@import "~bpmn-js/dist/assets/bpmn-font/css/bpmn";
+
+
+
+
+/* <link rel="stylesheet" href="bpmn-js/dist/assets/diagram-js.css" />
+<link rel="stylesheet" href="bpmn-js/dist/assets/bpmn-font/css/bpmn.css" /> */
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

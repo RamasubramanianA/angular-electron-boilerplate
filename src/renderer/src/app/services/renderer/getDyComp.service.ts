@@ -29,8 +29,8 @@ export class GetDyCompService {
 
   word: wordData ={
     language : null,
-    type : 'Importent',
-    words : ['performance issue']
+    type : 'Important',
+    words : ['security']
   };
   idea: ideaData = {
     idea: 'this is best way!this is best way!this is best way!this is best way!this is best way!this is best way!this is best way!',

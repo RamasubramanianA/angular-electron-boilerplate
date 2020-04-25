@@ -3,10 +3,11 @@
     <div class="card-header">
       <div class="row">
         <div class="col-1">
-          <mat-icon svgIcon="launch"></mat-icon>
+          <mat-icon svgIcon="link-variant"></mat-icon>
         </div>
         <div class="col-11">
-          <span *ngIf="open">Click to follow the </span> External Link
+          External Link
+          <!-- <span *ngIf="open">Click to follow the </span>  -->
         </div>
       </div>
     </div>
@@ -15,8 +16,8 @@
       <div class="container">
         <div class="row">
           <div class="col-1 totalCenter">
-            <mat-icon *ngIf="!open" svgIcon="gate"></mat-icon>
-            <mat-icon *ngIf="open" svgIcon="gate-open"></mat-icon>
+            <mat-icon *ngIf="!open" svgIcon="link-lock"></mat-icon>
+            <mat-icon *ngIf="open" svgIcon="link"></mat-icon>
           </div>
           <div class="col-11">
             <h5 class="card-title">{{data.title}}</h5>
