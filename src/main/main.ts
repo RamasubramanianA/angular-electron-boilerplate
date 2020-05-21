@@ -30,7 +30,7 @@ function createWindow() {
       preload: path.join(app.getAppPath(), 'dist/preload', 'preload.js')
     }
   });
-
+  // console.log("My app path",app.getPath('userData'));
   // https://stackoverflow.com/a/58548866/600559
   Menu.setApplicationMenu(null);
 
