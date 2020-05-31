@@ -1,0 +1,17 @@
+<mat-card style="margin: 20px;">
+  <div style="margin: 10px;">
+    <h2>
+      Path for local library
+    </h2>
+  </div>
+  <button style="margin: 10px;" mat-raised-button color="primary" (click)="getFolderName()">Pick a Folder</button>
+  <div [formGroup]="FormGroupOptions">
+    <mat-form-field class="fullwidth" appearance="fill" >
+      <mat-label>Pick a Folder</mat-label>
+      <input matInput  [formControl]="folderControl">
+    </mat-form-field>
+    <div *ngIf="folderControl.errors?.required" class="alert alert-danger">
+      Folder has to be selected to specify local library directory.
+    </div>
+  </div>
+</mat-card>

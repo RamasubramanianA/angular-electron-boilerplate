@@ -1,8 +1,9 @@
-import { app, BrowserWindow, ipcMain, Menu } from 'electron';
+import { app, BrowserWindow, ipcMain, Menu, dialog } from 'electron';
 import * as path from 'path';
 import { DtoSystemInfo } from '../ipc-dtos/dtosysteminfo';
 import * as os from 'os';
-import {getFileListInDir , fileContent} from './require/fs'
+import {getFileListInDir , fileContent, isFileExist} from './require/fs'
+const windowStateKeeper = require('electron-window-state');
 
 
 let win: BrowserWindow;
@@ -16,9 +17,22 @@ app.on('activate', () => {
 });
 
 function createWindow() {
+
+  // Load the previous state with fallback to defaults
+  let mainWindowState = windowStateKeeper({
+    defaultWidth: 1000,
+    defaultHeight: 800
+  });
+
+  // *********  set nodeIntegration false in production
+
   win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    'x': mainWindowState.x,
+    'y': mainWindowState.y,
+    'width': mainWindowState.width,
+    'height': mainWindowState.height,
+    'minHeight': 500,
+    'minWidth': 850,
     webPreferences: {
       // Disabled Node integration
       nodeIntegration: false,
@@ -29,6 +43,7 @@ function createWindow() {
       // Preload script
       preload: path.join(app.getAppPath(), 'dist/preload', 'preload.js')
     }
+
   });
   // console.log("My app path",app.getPath('userData'));
   // https://stackoverflow.com/a/58548866/600559
@@ -39,8 +54,17 @@ function createWindow() {
   win.on('closed', () => {
     win = null;
   });
+
+    // Let us register listeners on the window, so we can update the state
+    // automatically (the listeners will be removed when the window is closed)
+    // and restore the maximized or full screen state
+    mainWindowState.manage(win);
 }
 
+isFileExist('F:\\D\\YenBookcourse\\C_Programming\\TOC.JSON')
+.then((val)=>console.log("value on isFileExist call  :", val))
+.catch( err => console.log('error on isFileExist call: ', err))
+;
 ipcMain.on('dev-tools', () => {
   if (win) {
     win.webContents.toggleDevTools();
@@ -58,6 +82,21 @@ ipcMain.on('request-systeminfo', () => {
     win.webContents.send('systeminfo', serializedString);
   }
 });
+
+ipcMain.on('request-folderName', () => {
+  let folderName: string ;
+   dialog.showOpenDialog({ properties: ['openDirectory'] })
+  .then(val=>
+    {
+      folderName = val.filePaths[0];
+      console.log('folderName: ', folderName);
+      if (win) {
+        win.webContents.send('folderName', folderName);
+      }
+    });
+});
+
+
 
 
 ipcMain.on('request-file-list', async () => {

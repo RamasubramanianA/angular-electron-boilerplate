@@ -27,6 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CodeHighlighterService } from './services/renderer/prism/codeHighlighter.service';
 import { CodeComponent } from './components/Yen/code/code.component';
 import { WordComponent } from './components/Yen/word/word.component';
+import { UserPreferencesComponent } from './components/userPreferences/userPreferences.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { WordComponent } from './components/Yen/word/word.component';
     PageWithDyComComponent,
     DynCompDirHostDirective,
     CodeComponent,
-    WordComponent
+    WordComponent,
+    UserPreferencesComponent
   ],
   imports: [
     BrowserModule,
@@ -53,12 +56,14 @@ import { WordComponent } from './components/Yen/word/word.component';
     BrowserAnimationsModule,
     MaterialModule,
     MatIconModule,
-    HttpClientModule 
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [GetDyCompService,
               FileSystemsService, 
               IpcService,
-              CodeHighlighterService            
+              CodeHighlighterService
+                       
             ],
   bootstrap: [AppComponent],
   entryComponents: [ LinkComponent, ParaComponent, IdeaComponent  ],
