@@ -1,12 +1,14 @@
-import { app, BrowserWindow, ipcMain, Menu, dialog } from 'electron';
+import { app, BrowserWindow,  Menu } from 'electron';
 import * as path from 'path';
-import { DtoSystemInfo } from '../ipc-dtos/dtosysteminfo';
-import * as os from 'os';
-import {getFileListInDir , fileContent, isFileExist} from './require/fs'
+// import { DtoSystemInfo } from '../ipc-dtos/dtosysteminfo';
+// import * as os from 'os';
+// import { getFileListInDir, fileContent, isFileExist } from './require/fs'
 const windowStateKeeper = require('electron-window-state');
+import { ipc } from './require/ipc'
 
 
 let win: BrowserWindow;
+let ipcReady: boolean;
 
 app.on('ready', createWindow);
 
@@ -17,7 +19,6 @@ app.on('activate', () => {
 });
 
 function createWindow() {
-
   // Load the previous state with fallback to defaults
   let mainWindowState = windowStateKeeper({
     defaultWidth: 1000,
@@ -42,7 +43,8 @@ function createWindow() {
       enableRemoteModule: false,
       // Preload script
       preload: path.join(app.getAppPath(), 'dist/preload', 'preload.js')
-    }
+    },
+    show: false
 
   });
   // console.log("My app path",app.getPath('userData'));
@@ -55,73 +57,91 @@ function createWindow() {
     win = null;
   });
 
-    // Let us register listeners on the window, so we can update the state
-    // automatically (the listeners will be removed when the window is closed)
-    // and restore the maximized or full screen state
-    mainWindowState.manage(win);
+  
+
+  // Let us register listeners on the window, so we can update the state
+  // automatically (the listeners will be removed when the window is closed)
+  // and restore the maximized or full screen state
+  mainWindowState.manage(win);
+  // win.maximize();
+  win.focus();
+  win.on('focus', () => {
+    console.log('ready-to-show');
+    if (! ipcReady){
+      ipc(win);
+      ipcReady = true;
+    } else {
+      console.log("IPC is ready already.");
+    }
+    
+    
+  });
 }
 
-isFileExist('F:\\D\\YenBookcourse\\C_Programming\\TOC.JSON')
-.then((val)=>console.log("value on isFileExist call  :", val))
-.catch( err => console.log('error on isFileExist call: ', err))
-;
-ipcMain.on('dev-tools', () => {
-  if (win) {
-    win.webContents.toggleDevTools();
-  }
-});
 
-ipcMain.on('request-systeminfo', () => {
-  const systemInfo = new DtoSystemInfo();
-  systemInfo.Arch = os.arch();
-  systemInfo.Hostname = os.hostname();
-  systemInfo.Platform = os.platform();
-  systemInfo.Release = os.release();
-  const serializedString = systemInfo.serialize();
-  if (win) {
-    win.webContents.send('systeminfo', serializedString);
-  }
-});
-
-ipcMain.on('request-folderName', () => {
-  let folderName: string ;
-   dialog.showOpenDialog({ properties: ['openDirectory'] })
-  .then(val=>
-    {
-      folderName = val.filePaths[0];
-      console.log('folderName: ', folderName);
-      if (win) {
-        win.webContents.send('folderName', folderName);
-      }
-    });
-});
+// isFileExist('F:\\D\\YenBookcourse\\C_Programming\\TOC.JSON')
+// .then((val)=>console.log("value on isFileExist call  :", val))
+// .catch( err => console.log('error on isFileExist call: ', err))
+// ;
 
 
+// ipcMain.on('dev-tools', () => {
+//   if (win) {
+//     win.webContents.toggleDevTools();
+//   }
+// });
+
+// ipcMain.on('request-systeminfo', () => {
+//   const systemInfo = new DtoSystemInfo();
+//   systemInfo.Arch = os.arch();
+//   systemInfo.Hostname = os.hostname();
+//   systemInfo.Platform = os.platform();
+//   systemInfo.Release = os.release();
+//   const serializedString = systemInfo.serialize();
+//   if (win) {
+//     win.webContents.send('systeminfo', serializedString);
+//   }
+// });
+
+// ipcMain.on('request-folderName', () => {
+//   let folderName: string ;
+//    dialog.showOpenDialog({ properties: ['openDirectory'] })
+//   .then(val=>
+//     {
+//       folderName = val.filePaths[0];
+//       console.log('folderName: ', folderName);
+//       if (win) {
+//         win.webContents.send('folderName', folderName);
+//       }
+//     });
+// });
 
 
-ipcMain.on('request-file-list', async () => {
-  console.log('request-file-list in main.' );
-
-  if (win) {
-    let files = await getFileListInDir();
-    console.log('files await: ', files);
-    win.webContents.send('files-in-dir', files);
-  }
-  else
-  console.log('win not available. ');
 
 
-});
+// ipcMain.on('request-file-list', async () => {
+//   console.log('request-file-list in main.' );
+
+//   if (win) {
+//     let files = await getFileListInDir();
+//     console.log('files await: ', files);
+//     win.webContents.send('files-in-dir', files);
+//   }
+//   else
+//   console.log('win not available. ');
 
 
-ipcMain.on('request-file-content' , async ( v,fileName:string) => {
-  console.log('request-file-content in main -->.' , fileName);
+// });
 
-  if (win) {
-    let content: string = await fileContent(fileName);
-    console.log('files after await : ', content);
-    win.webContents.send('file-content', content);
-  }
-  else
-  console.log('win not available. ');
-});
+
+// ipcMain.on('request-file-content' , async ( v,fileName:string) => {
+//   console.log('request-file-content in main -->.' , fileName);
+
+//   if (win) {
+//     let content: string = await fileContent(fileName);
+//     console.log('files after await : ', content);
+//     win.webContents.send('file-content', content);
+//   }
+//   else
+//   console.log('win not available. ');
+// });

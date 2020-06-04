@@ -7,7 +7,7 @@ import { IpcService } from './../../src/app/services/main/ipc.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular-electron-boilerplate';
+  title = 'YenBook';
 
   constructor(private ipcService: IpcService) {
   }

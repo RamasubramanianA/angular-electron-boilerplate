@@ -35,3 +35,7 @@
        Every toolbar row uses a flexbox row layout. */
     flex: 1 1 auto;
   }
+ 
+  .mat-toolbar-single-row{
+    height: 45px;
+  }

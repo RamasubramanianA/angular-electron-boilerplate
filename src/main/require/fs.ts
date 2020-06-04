@@ -6,14 +6,14 @@ const fs = require('fs');
 const fsExtra = require('fs-extra');
 
 // With async/await:
-export  function isFileExist(f): Promise<boolean> {
-    return new Promise(async (resolve , reject) => {
+export function isFileExist(f): Promise<boolean> {
+    return new Promise(async (resolve, reject) => {
         await fsExtra.pathExists(f, (err, exists) => {
-            if(err){
+            if (err) {
                 console.log('isFileExist err: ', err);
                 reject(err);
             }
-            reject('hi rejected.');
+            // reject('hi rejected.');
             console.log(exists) // => false
             console.log('isFileExist: ', exists);
             resolve(exists);
@@ -21,34 +21,42 @@ export  function isFileExist(f): Promise<boolean> {
     });
 }
 
-export function findFile(dir, needDir) {
-    const Filesystem = require('fs');
-    var findingList = [];
+
+export function getFileAndFolderArray(dir: string,
+    needFolderOnly: boolean, needFileOnly: boolean, wantBoth: boolean): string[] {
+        // const Filesystem = require('fs');
+        console.log('dir: ', dir);
+    const Filesystem = fs;
+    var list: string[] = [];
     Filesystem.readdirSync(dir).forEach(function (file) {
         var stat;
         stat = Filesystem.statSync("" + dir + "/" + file);
         //console.log(file ,stat);
-        if (needDir) {
-            if (stat.isDirectory()) {
-                console.log("directory :", file);
-                findingList.push(file);
+        if (stat.isDirectory()) {
+            console.log("directory :", file);
+            if (needFolderOnly || wantBoth) {
+                list.push(file);
             }
         }
         else {
-            if (!stat.isDirectory()) {
-                var buff = file.split('.');
-                console.log("file :", file)
-                findingList.push(buff[0]);
-            }
+            var buff = file.split('.');
+            console.log("file :", file);
+            if (needFileOnly || wantBoth)
+                list.push(buff[0]);
         }
+
     });
-    return findingList;
+    return list;
 };
 
-export function getFileListInDir(): Promise<string[]> {
+export function getFileListInDir(baseDirectory: string): Promise<string[]> {
     return new Promise(resolve => {
         //joining path of directory 
-        const directoryPath = 'F:\\ELECTRON\\YenBook\\courses';
+        const directoryPath = baseDirectory;
+        console.log('directoryPath in getFileListInDir: ', directoryPath);
+        //'F:\\ELECTRON\\YenBook\\courses'
+
+
         //passsing directoryPath and callback function
         fs.readdir(directoryPath, function (err, files) {
             //handling error
