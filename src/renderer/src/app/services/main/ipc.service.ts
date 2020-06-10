@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DtoSystemInfo } from '../../../../../ipc-dtos/dtosysteminfo';
+import { DtoSystemInfo } from '../../../../../common/interface/dtosysteminfo';
 
 @Injectable({
   providedIn: 'root'

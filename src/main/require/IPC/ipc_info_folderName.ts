@@ -1,7 +1,9 @@
 import { BrowserWindow, dialog } from 'electron';
+import * as os from 'os';
+import { DtoSystemInfo } from '../../../common/interface/dtosysteminfo';
 
 
-export function request_systeminfo( win: BrowserWindow , os) {
+export function request_systeminfo( win: BrowserWindow ) {
     const systemInfo = new DtoSystemInfo();
     systemInfo.Arch = os.arch(); 
     systemInfo.Hostname = os.hostname();
@@ -12,23 +14,6 @@ export function request_systeminfo( win: BrowserWindow , os) {
         win.webContents.send('systeminfo', serializedString);
     }
 }
-
-export class DtoSystemInfo {
-    public Arch: string;
-    public Hostname: string;
-    public Platform: string;
-    public Release: string;
-
-    public static deserialize(jsonString: string): DtoSystemInfo {
-        const dto: DtoSystemInfo = JSON.parse(jsonString);
-        return dto;
-    }
-
-    public serialize(): string {
-        return JSON.stringify(this);
-    }
-}
-
 
 export function request_folderName(win){
     let folderName: string;

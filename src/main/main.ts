@@ -1,7 +1,7 @@
 import { app, BrowserWindow,  Menu } from 'electron';
 import * as path from 'path';
 // import { DtoSystemInfo } from '../ipc-dtos/dtosysteminfo';
-import * as os from 'os';
+// import * as os from 'os';
 // import { getFileListInDir, fileContent, isFileExist } from './require/fs'
 const windowStateKeeper = require('electron-window-state');
 import { ipc } from './require/IPC/ipc_main'
@@ -67,7 +67,7 @@ function createWindow() {
   win.on('focus', () => {
     console.log('ready-to-show');
     if (! ipcReady){
-      ipc(win, os);
+      ipc(win);
       ipcReady = true;
     } else {
       console.log("IPC is ready already.");

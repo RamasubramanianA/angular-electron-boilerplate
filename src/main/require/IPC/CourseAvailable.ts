@@ -1,4 +1,4 @@
-import {  getFileAndFolderArray, isFileExist } from '../fs';
+import {  getFileAndFolderArray, isFileExist } from '../fsRelated';
 import { existsSync } from 'fs';
 import { CourseAvailability } from '../../../common/interface/courseAvailability';
 import * as path from 'path';
