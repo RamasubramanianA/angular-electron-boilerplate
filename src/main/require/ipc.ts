@@ -1,5 +1,5 @@
 import { getFileListInDir, fileContent, isFileExist, getFileAndFolderArray } from './fs';
-import { DtoSystemInfo } from '../../ipc-dtos/dtosysteminfo';
+import { DtoSystemInfo } from './../../ipc-dtos/dtosysteminfo';
 import * as os from 'os';
 import { dialog, BrowserWindow, ipcMain } from 'electron';
 import { CourseAvailability } from "../../common/interface/courseAvailability";

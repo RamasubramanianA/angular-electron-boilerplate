@@ -6,6 +6,7 @@ import { PickFolderService } from './../../services/main/pickFolder.service'
 import { YenBookDB } from 'src/app/dataPattern/indexedDbModels/YenBookDB';
 import { CourseAvailability } from "../../../../../common/interface/courseAvailability";
 import { TestCourseService } from 'src/app/services/main/testCourse.service';
+import { HomeScreenAlertService } from 'src/app/services/renderer/homeScreenAlert.service';
 @Component({
   selector: 'app-userPreferences',
   templateUrl: './userPreferences.component.html',
@@ -15,41 +16,36 @@ export class UserPreferencesComponent implements OnInit {
   folder: string;
   folderControl = new FormControl('', Validators.required);
   FormGroupOptions: FormGroup;
-  alertDemo: boolean;
-  alertDanger: boolean;
-  alertMessage: string;
+  courseAvailability: CourseAvailability;
   constructor(private pickFolderService: PickFolderService,
     private fb: FormBuilder,
-    private testCourseService: TestCourseService
+    private testCourseService: TestCourseService,
+    private homeScreenAlertService : HomeScreenAlertService
   ) {
     this.FormGroupOptions = fb.group({
       folder: this.folderControl
     });
+
   }
 
   ngOnInit() {
     this.setLocalLibraryPath();
   }
 
-  setLocalLibraryPath() {
-    let db = new YenBookDB();
-    let localLibraryPath = db.preference.get('localLibraryPath');
-    localLibraryPath.then(val => {
-      console.log('val: ', val.value);
-      this.folderControl.setValue(val.value);
-    }).catch((err) => {
-      console.log('err: ', err);
-    });
-
+  setLocalLibraryPath() {    
+      this.homeScreenAlertService.getlocalLibraryPath().then(path =>{
+        this.folderControl.setValue(path);
+      }).then(()=>{
+        this.testCourseFolder();      
+      });
   }
 
   testCourseFolder() {
     console.log('this.folderControl.value: ', this.folderControl.value);
-    // this.testCourseService.getTestForTheMinimumCourseAvailable(this.folderControl.value).then(val => {
-    //   this.alertDemo = val.demoCousesOnly;
-    //   this.alertDanger = val.alertRequired;
-    //   this.alertMessage = val.message;
-    // });
+    this.testCourseService.getTestForTheMinimumCourseAvailable(this.folderControl.value).then(val => {
+      this.courseAvailability = val;
+      this.homeScreenAlertService.sendMessage(val);
+    });
   }
 
   async getFolderName() {
@@ -65,13 +61,13 @@ export class UserPreferencesComponent implements OnInit {
           key: 'localLibraryPath',
           value: val
         });
-        this.testFolder();
+        this.testCourseFolder();
       }
     });
   };
 
-  testFolder() {
-    this.testCourseFolder();
+  // testFolder() {
+  //   this.testCourseFolder();
     // swal({
     //   title: 'Folder have courses',
     //   timer: 1500,
@@ -79,6 +75,6 @@ export class UserPreferencesComponent implements OnInit {
     //   type: "success",
     //   showConfirmButton: false
     // });
-  }
+  // }
 }
 

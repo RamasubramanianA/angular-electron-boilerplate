@@ -43,8 +43,7 @@ function createWindow() {
       enableRemoteModule: false,
       // Preload script
       preload: path.join(app.getAppPath(), 'dist/preload', 'preload.js')
-    },
-    show: false
+    }
 
   });
   // console.log("My app path",app.getPath('userData'));

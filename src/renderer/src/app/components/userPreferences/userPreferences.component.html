@@ -6,9 +6,13 @@
   </div>
   <button style="margin: 10px;" mat-raised-button color="primary" (click)="getFolderName()">Pick a Folder</button>
   <div [formGroup]="FormGroupOptions">
-    <mat-form-field class="fullwidth" appearance="fill" >
+    <mat-form-field class="fullwidth" appearance="fill">
       <mat-label>Pick a Folder</mat-label>
-      <input matInput  [formControl]="folderControl">
+      <input #folderInput matInput [formControl]="folderControl"
+       (focusout)="testCourseFolder()"
+       (keyup.enter)="folderInput.blur()"
+       >
+
     </mat-form-field>
     <div *ngIf="folderControl.errors?.required" class="alert alert-danger">
       Folder has to be selected to specify local library directory.
@@ -16,5 +20,13 @@
     <!-- <div *ngIf="alertDemo || alertDanger " [ngClass]="{'alert': true, 'alert-danger': alertDanger,'alert-info': alertDemo }">
       {{alertMessage}}
     </div> -->
+
+    <div *ngIf="courseAvailability && courseAvailability.alertRequired"
+      [ngClass]="{'alert': true, 'alert-danger': !courseAvailability.demoCousesOnly,'alert-info': courseAvailability.demoCousesOnly }">
+      {{courseAvailability.message}}
+      <div>
+        <p>Go to settings to change the local library path.</p>
+      </div>
+    </div>
   </div>
 </mat-card>
