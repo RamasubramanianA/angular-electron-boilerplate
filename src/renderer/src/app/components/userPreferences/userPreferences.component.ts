@@ -20,7 +20,7 @@ export class UserPreferencesComponent implements OnInit {
   constructor(private pickFolderService: PickFolderService,
     private fb: FormBuilder,
     private testCourseService: TestCourseService,
-    private homeScreenAlertService : HomeScreenAlertService
+    private homeScreenAlertService: HomeScreenAlertService
   ) {
     this.FormGroupOptions = fb.group({
       folder: this.folderControl
@@ -32,12 +32,12 @@ export class UserPreferencesComponent implements OnInit {
     this.setLocalLibraryPath();
   }
 
-  setLocalLibraryPath() {    
-      this.homeScreenAlertService.getlocalLibraryPath().then(path =>{
-        this.folderControl.setValue(path);
-      }).then(()=>{
-        this.testCourseFolder();      
-      });
+  setLocalLibraryPath() {
+    this.homeScreenAlertService.getlocalLibraryPath().then(path => {
+      this.folderControl.setValue(path);
+    }).then(() => {
+      this.testCourseFolder();
+    });
   }
 
   testCourseFolder() {
@@ -66,15 +66,26 @@ export class UserPreferencesComponent implements OnInit {
     });
   };
 
+  setOnEnter() {
+    let val = this.folderControl.value;
+    console.log('val: ', val);
+    if(val){
+      let db = new YenBookDB();
+      db.preference.put({
+        key: 'localLibraryPath',
+        value: val
+      });
+    }
+  }
   // testFolder() {
   //   this.testCourseFolder();
-    // swal({
-    //   title: 'Folder have courses',
-    //   timer: 1500,
-    //   position: 'top-end',
-    //   type: "success",
-    //   showConfirmButton: false
-    // });
+  // swal({
+  //   title: 'Folder have courses',
+  //   timer: 1500,
+  //   position: 'top-end',
+  //   type: "success",
+  //   showConfirmButton: false
+  // });
   // }
 }
 

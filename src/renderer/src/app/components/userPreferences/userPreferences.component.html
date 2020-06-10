@@ -10,7 +10,7 @@
       <mat-label>Pick a Folder</mat-label>
       <input #folderInput matInput [formControl]="folderControl"
        (focusout)="testCourseFolder()"
-       (keyup.enter)="folderInput.blur()"
+       (keyup.enter)="folderInput.blur(); setOnEnter();"
        >
 
     </mat-form-field>
