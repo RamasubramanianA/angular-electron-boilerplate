@@ -10,9 +10,7 @@ import { AppComponent } from './app.component';
 import { Component1Component } from './components/component1/component1.component';
 import { Component2Component } from './components/component2/component2.component';
 import { NavlistComponent } from './components/navlist/navlist.component';
-import { ListComponent } from './components/courses/list/list.component';
 import { MyCoursesComponent } from './components/my-courses/my-courses.component';
-import { Ex1Component } from './components/courses/ex1/ex1.component';
 import { TOCComponent } from './components/TOC/TOC.component';
 import { LinkComponent } from './components/Yen/link/link.component';
 import { ParaComponent } from './components/Yen/para/para.component';
@@ -37,9 +35,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     Component2Component,
     TOCComponent,
     NavlistComponent,
-    ListComponent,
     MyCoursesComponent,
-    Ex1Component,
     LinkComponent,
     ParaComponent,
     IdeaComponent,
