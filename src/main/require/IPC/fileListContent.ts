@@ -1,4 +1,4 @@
-import { getFileListInDir, fileContent, isFileExist, getFileAndFolderArray } from '../fsRelated';
+import { getFileListInDir, fileContent } from '../fsRelated';
 
 export async function request_file_list(win){
     console.log('request-file-list in main.');

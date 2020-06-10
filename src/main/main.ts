@@ -1,8 +1,6 @@
 import { app, BrowserWindow,  Menu } from 'electron';
 import * as path from 'path';
-// import { DtoSystemInfo } from '../ipc-dtos/dtosysteminfo';
-// import * as os from 'os';
-// import { getFileListInDir, fileContent, isFileExist } from './require/fs'
+
 const windowStateKeeper = require('electron-window-state');
 import { ipc } from './require/IPC/ipc_main'
 

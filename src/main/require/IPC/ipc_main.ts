@@ -1,6 +1,4 @@
-import { isFileExist, getFileAndFolderArray } from '../fsRelated';
 import { BrowserWindow, ipcMain } from 'electron';
-// import { CourseAvailability } from "../../../common/interface/courseAvailability";
 import { request_systeminfo, request_folderName } from './ipc_info_folderName';
 import { request_file_list, request_file_content } from './fileListContent';
 import { getTestForTheMinimumCourseAvailable } from "./CourseAvailable";
