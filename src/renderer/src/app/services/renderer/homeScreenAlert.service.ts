@@ -4,24 +4,25 @@ import { CourseAvailability } from '../../../../../common/interface/courseAvaila
 import { YenBookDB } from 'src/app/dataPattern/indexedDbModels/YenBookDB';
 import { TestCourseService } from '../main/testCourse.service';
 
+// return localLibraryPath from indexed DB
+// prepare alert message for course availability
 @Injectable({
   providedIn: 'root'
 })
 export class HomeScreenAlertService {
+  private localLibraryPath: string; 
   
   constructor( private testCourseService: TestCourseService) { 
 
-    this.getlocalLibraryPath().then(path=>{
-      this.testCourseService.getTestForTheMinimumCourseAvailable( path).then(val=>{
-        this.homeScreenAlertSubject$.next(val);
-      });
-    })
+   this.validateFolder();
+    
   }
 
 
   private homeScreenAlertSubject$ = new Subject<CourseAvailability>();
 
   sendMessage(courseAvailability: CourseAvailability) {
+    console.log('courseAvailability: ', courseAvailability);
     this.homeScreenAlertSubject$.next(courseAvailability);
   }
 
@@ -30,7 +31,12 @@ export class HomeScreenAlertService {
   }
 
   getMessage(): Observable<CourseAvailability> {
+    console.log("getMessage()");
     return this.homeScreenAlertSubject$.asObservable();
+  }
+
+  getlocalLibraryPathFromService(): string{
+    return this.localLibraryPath;
   }
 
   async getlocalLibraryPath(): Promise<string> {
@@ -39,15 +45,23 @@ export class HomeScreenAlertService {
       let localLibraryPath = db.preference.get('localLibraryPath');
       await localLibraryPath.then(val => {
         console.log('val: ', val.value);
+        this.localLibraryPath = val.value;
         resolve( val.value);
       }).catch((err) => {
         console.log('err: ', err);
         resolve( 'error');
       });
       resolve ('No result');
-
     });
   }
 
+
+  validateFolder() {
+    this.getlocalLibraryPath().then(path=>{
+      this.testCourseService.getTestForTheMinimumCourseAvailable( path).then(val=>{
+        this.homeScreenAlertSubject$.next(val);
+      });
+    });
+  }
 
 }

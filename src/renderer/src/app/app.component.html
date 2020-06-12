@@ -23,7 +23,7 @@
   </div>
   <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="0">
     <mat-sidenav #sidenav mode="over" fixedTopGap="56">
-      <app-navlist (sidenavClose)="sidenav.close()"></app-navlist>
+      <app-navlist (sidenavClose)="sidenav.close()" [courseAvailablity]="courseAvailability"></app-navlist>
     </mat-sidenav>
     <mat-sidenav-content>
       <router-outlet></router-outlet>

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FileSystemsService  } from "./.././../services/main/fileSystems.service"; 
-import { Router } from '@angular/router';
-
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CourseListService } from 'src/app/services/main/courseList.service';
+import { HomeScreenAlertService } from 'src/app/services/renderer/homeScreenAlert.service';
+import { Subscription } from 'rxjs';
+import { CourseAvailability } from '../../../../../common/interface/courseAvailability';
+import { CourseDetails } from '../../../../../common/interface/courseDetails';
 @Component({
   selector: 'app-my-courses',
   templateUrl: './my-courses.component.html',
@@ -10,32 +12,16 @@ import { Router } from '@angular/router';
 })
 export class MyCoursesComponent implements OnInit {
 
-  files: string[] = [];
-  content: string = '';
-  
-  constructor(
-    private fileSystem: FileSystemsService,
-    private router:Router
-  ) { 
+  CourseDetails: CourseDetails[];
 
-    console.log('ll');
+  constructor( private courseListService: CourseListService , 
+    private homeScreenAlertService :HomeScreenAlertService) { 
+      courseListService.getCourseDetails().then(courses =>{
+        console.log('courses: ', courses);
+        this.CourseDetails = courses;
+      }).catch( () => console.log('error'));
+    }
   
-  }
-  
-  ngOnInit() {
-    this.fileSystem.getFilesInDirAsync().then(files =>{
-      console.log('files: ', files);
-      this.files = files;
-    });
-  }
-
-  openCourse( file){
-    console.log('file: ', file);
-    this.fileSystem.getFileContentAsync(file).then( content =>{
-      this.content = content;
-      console.log(content);
-      this.router.navigateByUrl(`cPara/${content}`);
-    });
-  }
+  ngOnInit() { }
 
 }
