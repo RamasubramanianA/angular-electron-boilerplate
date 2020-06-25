@@ -6,10 +6,11 @@ import { MyCoursesComponent } from './components/my-courses/my-courses.component
 import { CommonModule } from '@angular/common';
 import { UserPreferencesComponent } from './components/userPreferences/userPreferences.component';
 import { TOCComponent } from './components/TOC/TOC.component';
+import { LayoutComponent } from './layout/layout.component';
 
 
 const routes: Routes = [
-  { path:  '', component:  Component1Component },
+  { path:  '', component:  LayoutComponent },
   { path:  '2', component:  TOCComponent },
   { path:  '3', component:  MyCoursesComponent } ,
   { path:  '4', component:  UserPreferencesComponent } 

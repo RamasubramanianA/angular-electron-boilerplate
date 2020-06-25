@@ -1,0 +1,38 @@
+<mat-card (click)="goTo()">
+  <div class="container">
+      <div class="row">
+          <div class="col-1 ">
+              <mat-icon [id]="'link_lock' + course.id" *ngIf="!open" svgIcon="link-lock"></mat-icon>
+              <mat-icon [id]="'link' + course.id"      *ngIf="open" svgIcon="link"></mat-icon>
+          </div>
+          <div class="col-11">
+              <mat-card-header>
+                  <div mat-card-avatar>
+                      <mat-icon svgIcon="{{course.icon_name}}"></mat-icon>
+                  </div>
+                  <mat-card-title>{{course.title}}</mat-card-title>
+                  <mat-card-subtitle *ngIf="course.subtitle">{{course.subtitle}}</mat-card-subtitle>
+              </mat-card-header>
+          </div>
+      </div>
+  </div>
+
+  <!-- <mat-card-content>
+      content
+  </mat-card-content> -->
+  <mat-card-actions *ngIf="open">
+    <div class="container">
+      <div class="row">
+        <div class="col-4">
+          <button mat-stroked-button color="primary" >Table of content</button>
+        </div>
+        <div class="col-4">
+          <button mat-stroked-button color="primary" >Home page</button>
+        </div>
+        <div class="col-4">
+          <button mat-stroked-button color="primary" >Last viewed page</button>
+        </div>
+      </div>
+    </div>
+  </mat-card-actions>
+</mat-card>

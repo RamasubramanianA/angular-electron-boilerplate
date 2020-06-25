@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IpcService } from './../../src/app/services/main/ipc.service';
 import { HomeScreenAlertService } from './services/renderer/homeScreenAlert.service';
 import { Subscription, interval } from 'rxjs';
 import { CourseAvailability } from '../../../common/interface/courseAvailability';
 import { map,take } from 'rxjs/operators';
+import { SideNavService } from './services/renderer/sideNav/sideNav.service';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +13,20 @@ import { map,take } from 'rxjs/operators';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  @ViewChild('sidenav') public sidenav: MatSidenav;
 
   subscription: Subscription;
 
   title = 'YenBook';
   courseAvailability: CourseAvailability;
   
+
+  ngAfterViewInit(): void {
+    this.sidNavService.setSidenav(this.sidenav);
+  }
   constructor(private ipcService: IpcService,
-     private homeScreenAlertService: HomeScreenAlertService) {
+     private homeScreenAlertService: HomeScreenAlertService,
+     private sidNavService: SideNavService) {
       this.subscription = this.homeScreenAlertService.getMessage().subscribe( availability =>{
         if(availability){
           this.courseAvailability = availability;

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { CourseListService } from 'src/app/services/main/courseList.service';
 import { HomeScreenAlertService } from 'src/app/services/renderer/homeScreenAlert.service';
 import { Subscription } from 'rxjs';
@@ -11,6 +11,7 @@ import { CourseDetails } from '../../../../../common/interface/courseDetails';
   
 })
 export class MyCoursesComponent implements OnInit {
+
 
   CourseDetails: CourseDetails[];
 

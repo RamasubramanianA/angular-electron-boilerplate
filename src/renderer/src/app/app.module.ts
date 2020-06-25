@@ -27,43 +27,59 @@ import { CodeComponent } from './components/Yen/code/code.component';
 import { WordComponent } from './components/Yen/word/word.component';
 import { UserPreferencesComponent } from './components/userPreferences/userPreferences.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CourseComponent } from './components/my-courses/course/course.component';
+import { LayoutComponent } from './layout/layout.component';
+import { LeftEndHoverDirective } from './directives/mouseHover/leftEndHover.directive';
+import { SideNavService } from './services/renderer/sideNav/sideNav.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    Component1Component,
-    Component2Component,
-    TOCComponent,
-    NavlistComponent,
-    MyCoursesComponent,
-    LinkComponent,
-    ParaComponent,
-    IdeaComponent,
-    PageWithDyComComponent,
-    DynCompDirHostDirective,
-    CodeComponent,
-    WordComponent,
-    UserPreferencesComponent
-  ],
-  imports: [
-    BrowserModule,
-    CommonModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    MatIconModule,
-    HttpClientModule,
-    ReactiveFormsModule
-  ],
-  providers: [GetDyCompService,
-              FileSystemsService, 
-              IpcService,
-              CodeHighlighterService
-                       
-            ],
-  bootstrap: [AppComponent],
-  entryComponents: [ LinkComponent, ParaComponent, IdeaComponent  ],
-  exports:[MyCoursesComponent]
+   declarations: [
+      AppComponent,
+      Component1Component,
+      Component2Component,
+      TOCComponent,
+      NavlistComponent,
+      MyCoursesComponent,
+      LinkComponent,
+      ParaComponent,
+      IdeaComponent,
+      PageWithDyComComponent,
+      DynCompDirHostDirective,
+      CodeComponent,
+      WordComponent,
+      UserPreferencesComponent,
+      CourseComponent,
+      LayoutComponent,
+      LeftEndHoverDirective
+   ],
+   imports: [
+      BrowserModule,
+      CommonModule,
+      AppRoutingModule,
+      BrowserAnimationsModule,
+      MaterialModule,
+      MatIconModule,
+      HttpClientModule,
+      ReactiveFormsModule
+   ],
+   providers: [
+      GetDyCompService,
+      FileSystemsService,
+      IpcService,
+      CodeHighlighterService,
+      SideNavService
+   ],
+   bootstrap: [
+      AppComponent
+   ],
+   entryComponents: [
+      LinkComponent,
+      ParaComponent,
+      IdeaComponent
+   ],
+   exports: [
+      MyCoursesComponent
+   ]
 })
 export class AppModule { 
 
